@@ -1,2 +1,2 @@
-# Event-Registration_Platform
+# Event-Registration-Platform
 A fully functional e-commerce shopping cart system with real-time updates and checkout flow.
