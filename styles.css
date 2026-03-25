@@ -7,7 +7,8 @@
 
 body {
   background: linear-gradient(135deg, #eef2ff, #dbeafe);
-  min-height: 100vh;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,7 +17,7 @@ body {
 
 .container {
   width: 100%;
-  max-width: 900px;
+  max-width: 100%;
 }
 
 .card {
@@ -54,6 +55,18 @@ body {
   border-left: 5px solid #2563eb;
   padding: 20px;
   border-radius: 12px;
+  width: 400px;
+}
+
+.team-section {
+  background: #f8fafc;
+  border-left: 5px solid #2563eb;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .info-box h2,
