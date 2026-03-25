@@ -55,7 +55,6 @@ body {
   border-left: 5px solid #2563eb;
   padding: 20px;
   border-radius: 12px;
-  width: 400px;
 }
 
 .team-section {
@@ -64,9 +63,15 @@ body {
   padding: 20px;
   border-radius: 12px;
   margin-bottom: 20px;
-  width: 600px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.info-box,
+.team-section,
+.description-section {
+  width: 100%;
+  max-width: 100%;
 }
 
 .info-box h2,
