@@ -120,3 +120,257 @@ img {
   color: #64748b;
   font-size: 0.95rem;
 }
+
+.btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 20px;
+  background: #2563eb;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.btn:hover {
+  background: #1e40af;
+}
+
+/* ******** event pages ********* */
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1e3a8a;
+  color: white;
+  padding: 15px 30px;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  margin-left: 15px;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+/* EVENTS PAGE */
+.events-container {
+  padding: 40px;
+  text-align: center;
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.event-card {
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.event-card h3 {
+  margin-bottom: 10px;
+}
+
+.event-card button {
+  margin-top: 10px;
+  padding: 10px 15px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.event-card button:hover {
+  background: #1e40af;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .events-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ********* event details********* */
+
+.details-container {
+  padding: 40px;
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.details-container h2 {
+  margin-bottom: 20px;
+}
+
+.details-container p {
+  margin: 10px 0;
+  font-size: 1.1rem;
+}
+
+/* ************* register *********** */
+.register-container {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 30px;
+  background: #f8fafc;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.register-container input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.register-container button {
+  width: 100%;
+  padding: 12px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.register-container button:hover {
+  background: #1e40af;
+}
+
+#success-message {
+  margin-top: 15px;
+  color: green;
+}
+
+/* ************ admin page ************ */
+
+.admin-container {
+  padding: 40px;
+  text-align: center;
+}
+
+table {
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 12px;
+}
+
+th {
+  background: #2563eb;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background: #f2f2f2;
+}
+
+button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+td button {
+  background: red;
+  color: white;
+}
+
+/* =========================
+   ADMIN EVENTS PAGE
+========================= */
+
+.admin-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #f8fafc;
+  border-radius: 12px;
+  text-align: center;
+}
+
+/* FORM */
+.admin-container form {
+  margin-bottom: 30px;
+}
+
+.admin-container input {
+  width: 90%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+/* BUTTONS */
+.admin-container button {
+  padding: 10px 15px;
+  margin-top: 10px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.admin-container button:hover {
+  background: #1e40af;
+}
+
+/* TABLE */
+table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 12px;
+}
+
+th {
+  background: #2563eb;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background: #f2f2f2;
+}
+
+/* DELETE BUTTON */
+td button {
+  background: red;
+  color: white;
+}
+
+td button:hover {
+  background: darkred;
+}

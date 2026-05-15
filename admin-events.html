@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Events</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <h1>Manage Events</h1>
+        <nav>
+            <a href="index.html" class="btn">Home</a>
+            <a href="admin.html" class="btn">Participants</a>
+        </nav>
+    </header>
+
+    <section class="admin-container">
+
+        <h2>Add New Event</h2>
+
+        <form onsubmit="addEvent(event)">
+            <input type="text" id="event-title" placeholder="Event Title" required>
+            <input type="text" id="event-date" placeholder="Date" required>
+            <input type="text" id="event-location" placeholder="Location" required>
+            <input type="text" id="event-description" placeholder="Description" required>
+            <button type="submit">Add Event</button>
+        </form>
+
+        <h2>All Events</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Location</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="events-table"></tbody>
+        </table>
+        <button onclick="logout()">Logout</button>
+
+    </section>
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>

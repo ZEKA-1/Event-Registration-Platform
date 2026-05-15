@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <h1>Event Platform</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="events.html">Events</a>
+        </nav>
+    </header>
+
+    <section class="register-container">
+
+        <h2>Register for Event</h2>
+
+        <p id="selected-event"></p>
+
+        <form onsubmit="submitForm(event)">
+            <input type="text" id="name" placeholder="Full Name" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <button type="submit">Submit Registration</button>
+        </form>
+
+        <p id="success-message"></p>
+
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
