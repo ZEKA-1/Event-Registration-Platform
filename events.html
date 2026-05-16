@@ -10,30 +10,31 @@
 
 <body>
 
-    <header class="navbar">
+    <nav class="navbar">
         <h1>Event Platform</h1>
-        <nav>
-            <a href="index.html" class="btn">Home</a>
-            <!--- a href="events-details.html" class="btn">Events details</a  --->
-        </nav>
-    </header>
 
-    <section class="events-container">
-        <h2>Available Events</h2>
-
-        <div class="events-grid">
-
-            <!-- Event Card 1 -->
-            <section class="events-container">
-                <h2>Available Events</h2>
-
-                <div class="events-grid" id="events-list">
-                    <!-- Events will be loaded here -->
-                </div>
-            </section>
-
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="admin.html">Admin</a>
         </div>
-    </section>
+    </nav>
+    <main class="page-content">
+        <section class="events-container">
+            <h2>Available Events</h2>
+
+            <div class="events-grid">
+
+                <!-- Event Card 1 -->
+                <section class="events-container">
+
+                    <div class="events-grid" id="events-list">
+                        <!-- Events will be loaded here -->
+                    </div>
+                </section>
+
+            </div>
+        </section>
+    </main>
 
     <script src="script.js"></script>
 </body>

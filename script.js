@@ -1,6 +1,4 @@
-// =========================
-// PROTECT ADMIN PAGES
-// =========================
+
 if (
     window.location.pathname.includes("admin.html") ||
     window.location.pathname.includes("admin-events.html")
@@ -12,10 +10,6 @@ if (
     }
 }
 
-
-// =========================
-// SAVE EVENT + GO TO DETAILS
-// =========================
 function viewDetails(title, date, location, description) {
     const event = {
         title,
@@ -28,9 +22,6 @@ function viewDetails(title, date, location, description) {
     window.location.href = "events-details.html";
 }
 
-// =========================
-// LOAD EVENT DETAILS PAGE
-// =========================
 if (window.location.pathname.includes("events-details.html")) {
     const event = JSON.parse(localStorage.getItem("selectedEvent"));
 
@@ -42,16 +33,10 @@ if (window.location.pathname.includes("events-details.html")) {
     }
 }
 
-// =========================
-// GO TO REGISTER PAGE
-// =========================
 function goToRegister() {
     window.location.href = "register.html";
 }
 
-// =========================
-// LOAD REGISTER PAGE
-// =========================
 if (window.location.pathname.includes("register.html")) {
     const event = JSON.parse(localStorage.getItem("selectedEvent"));
 
@@ -61,9 +46,6 @@ if (window.location.pathname.includes("register.html")) {
     }
 }
 
-// =========================
-// HANDLE FORM + SAVE DATA
-// =========================
 function submitForm(e) {
     e.preventDefault();
 
@@ -72,113 +54,113 @@ function submitForm(e) {
     const event = JSON.parse(localStorage.getItem("selectedEvent"));
 
     if (name && email && event) {
-        const registration = {
-            name,
-            email,
-            event: event.title
-        };
+        fetch("http://localhost:3000/events")
+            .then(res => res.json())
+            .then(events => {
+                // find event ID
+                const selected = events.find(ev => ev.title === event.title);
 
-        // Get existing registrations
-        let registrations = JSON.parse(localStorage.getItem("registrations")) || [];
+                if (!selected) {
+                    alert("Event not found");
+                    return;
+                }
 
-        // Add new one
-        registrations.push(registration);
+                return fetch("http://localhost:3000/register", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        name,
+                        email,
+                        event_id: selected.id
+                    })
+                });
+            })
+            .then(() => {
+                document.getElementById("success-message").textContent =
+                    "Registration saved in database ✅";
 
-        // Save back
-        localStorage.setItem("registrations", JSON.stringify(registrations));
-
-        // Show success message
-        document.getElementById("success-message").textContent =
-            "Registration saved successfully! ✅";
-
-        // Clear form
-        document.getElementById("name").value = "";
-        document.getElementById("email").value = "";
+                document.getElementById("name").value = "";
+                document.getElementById("email").value = "";
+            });
     }
 }
 
-// =========================
-// LOAD ADMIN DATA
-// =========================
-if (window.location.pathname.includes("admin.html")) {
-    loadRegistrations();
-}
 
-// FUNCTION TO LOAD TABLE
 if (window.location.pathname.includes("admin.html")) {
     loadRegistrations();
 }
 
 function loadRegistrations() {
-    const registrations = JSON.parse(localStorage.getItem("registrations")) || [];
-    const table = document.getElementById("admin-table");
+    fetch("http://localhost:3000/registrations")
+        .then(res => res.json())
+        .then(data => {
+            const table = document.getElementById("admin-table");
+            table.innerHTML = "";
 
-    table.innerHTML = "";
-
-    if (registrations.length === 0) {
-        table.innerHTML = "<tr><td colspan='4'>No registrations yet</td></tr>";
-    } else {
-        registrations.forEach((reg, index) => {
-            const row = `
-        <tr>
-          <td>${reg.name}</td>
-          <td>${reg.email}</td>
-          <td>${reg.event}</td>
-          <td>
-            <button onclick="deleteRegistration(${index})">Delete</button>
-          </td>
-        </tr>
-      `;
-            table.innerHTML += row;
+            if (data.length === 0) {
+                table.innerHTML = "<tr><td colspan='4'>No registrations yet</td></tr>";
+            } else {
+                data.forEach(reg => {
+                    const row = `
+            <tr>
+              <td>${reg.name}</td>
+              <td>${reg.email}</td>
+              <td>${reg.event}</td>
+              <td>
+                <button onclick="deleteRegistration(${reg.id})">Delete</button>
+              </td>
+            </tr>
+          `;
+                    table.innerHTML += row;
+                });
+            }
         });
-    }
 }
 
-function deleteRegistration(index) {
-    let registrations = JSON.parse(localStorage.getItem("registrations")) || [];
+function deleteRegistration(id) {
+    console.log("Deleting registration:", id);
 
-    registrations.splice(index, 1);
-
-    localStorage.setItem("registrations", JSON.stringify(registrations));
-
-    loadRegistrations();
+    fetch(`http://localhost:3000/registrations/${id}`, {
+        method: "DELETE"
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log("Deleted:", data);
+            loadRegistrations(); // refresh table
+        })
+        .catch(err => console.error(err));
 }
 
-// =========================
-// LOAD EVENTS ADMIN
-// =========================
+
 if (window.location.pathname.includes("admin-events.html")) {
     loadEvents();
 }
 
 function loadEvents() {
-    const events = JSON.parse(localStorage.getItem("events")) || [];
-    const table = document.getElementById("events-table");
+    fetch("http://localhost:3000/events")
+        .then(res => res.json())
+        .then(events => {
+            const table = document.getElementById("events-table");
+            table.innerHTML = "";
 
-    table.innerHTML = "";
-
-    if (events.length === 0) {
-        table.innerHTML = "<tr><td colspan='4'>No events yet</td></tr>";
-    } else {
-        events.forEach((ev, index) => {
-            const row = `
-        <tr>
-          <td>${ev.title}</td>
-          <td>${ev.date}</td>
-          <td>${ev.location}</td>
-          <td>
-            <button onclick="deleteEvent(${index})">Delete</button>
-          </td>
-        </tr>
-      `;
-            table.innerHTML += row;
+            events.forEach(ev => {
+                const row = `
+          <tr>
+            <td>${ev.title}</td>
+            <td>${ev.date}</td>
+            <td>${ev.location}</td>
+            <td>
+              <button onclick="deleteEvent(${ev.id})">Delete</button>
+            </td>
+          </tr>
+        `;
+                table.innerHTML += row;
+            });
         });
-    }
 }
 
-// =========================
-// ADD EVENT
-// =========================
 function addEvent(e) {
     e.preventDefault();
 
@@ -187,74 +169,72 @@ function addEvent(e) {
     const location = document.getElementById("event-location").value;
     const description = document.getElementById("event-description").value;
 
-    const newEvent = { title, date, location, description };
+    console.log("Sending:", { title, date, location, description });
 
-    let events = JSON.parse(localStorage.getItem("events")) || [];
-
-    events.push(newEvent);
-
-    localStorage.setItem("events", JSON.stringify(events));
-
-    loadEvents();
-
-    // clear form
-    document.getElementById("event-title").value = "";
-    document.getElementById("event-date").value = "";
-    document.getElementById("event-location").value = "";
-    document.getElementById("event-description").value = "";
+    fetch("http://localhost:3000/events", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ title, date, location, description })
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log("Response:", data);
+            loadEvents();
+        })
+        .catch(err => console.error(err));
 }
 
-// =========================
-// DELETE EVENT
-// =========================
-function deleteEvent(index) {
-    let events = JSON.parse(localStorage.getItem("events")) || [];
+function deleteEvent(id) {
+    console.log("Delete clicked, ID:", id);
 
-    events.splice(index, 1);
-
-    localStorage.setItem("events", JSON.stringify(events));
-
-    loadEvents();
+    fetch(`http://localhost:3000/events/${id}`, {
+        method: "DELETE"
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log("Server response:", data);
+            loadEvents();
+        })
+        .catch(err => console.error("Delete error:", err));
 }
 
-// =========================
-// LOAD EVENTS (DYNAMIC)
-// =========================
+function loadUserEvents() {
+    fetch("http://localhost:3000/events")
+        .then(res => res.json())
+        .then(events => {
+            const container = document.getElementById("events-list");
+            container.innerHTML = "";
+
+            if (events.length === 0) {
+                container.innerHTML = "<p>No events available</p>";
+            } else {
+                events.forEach(ev => {
+                    const card = `
+            <div class="event-card">
+              <h3>${ev.title}</h3>
+              <p>Date: ${ev.date}</p>
+              <p>Location: ${ev.location}</p>
+              <button onclick="viewDetails(
+                '${ev.title}',
+                '${ev.date}',
+                '${ev.location}',
+                '${ev.description}'
+              )">View Details</button>
+            </div>
+          `;
+                    container.innerHTML += card;
+                });
+            }
+        })
+        .catch(err => console.error(err));
+}
+
 if (window.location.pathname.includes("events.html")) {
     loadUserEvents();
 }
 
-function loadUserEvents() {
-    const events = JSON.parse(localStorage.getItem("events")) || [];
-    const container = document.getElementById("events-list");
-
-    container.innerHTML = "";
-
-    if (events.length === 0) {
-        container.innerHTML = "<p>No events available</p>";
-    } else {
-        events.forEach(ev => {
-            const card = `
-        <div class="event-card">
-          <h3>${ev.title}</h3>
-          <p>Date: ${ev.date}</p>
-          <p>Location: ${ev.location}</p>
-          <button onclick="viewDetails(
-            '${ev.title}',
-            '${ev.date}',
-            '${ev.location}',
-            '${ev.description}'
-          )">View Details</button>
-        </div>
-      `;
-            container.innerHTML += card;
-        });
-    }
-}
-
-// =========================
-// ADMIN LOGIN
-// =========================
 function login(e) {
     e.preventDefault();
 
@@ -274,4 +254,18 @@ function login(e) {
 function logout() {
     localStorage.removeItem("isAdminLoggedIn");
     window.location.href = "index.html";
+}
+
+function deleteRegistration(id) {
+    console.log("Delete registration:", id);
+
+    fetch(`http://localhost:3000/registrations/${id}`, {
+        method: "DELETE"
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            loadRegistrations(); // refresh table
+        })
+        .catch(err => console.error(err));
 }

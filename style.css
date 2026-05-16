@@ -6,13 +6,9 @@
 }
 
 body {
-  background: linear-gradient(135deg, #eef2ff, #dbeafe);
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 30px;
+  margin: 0;
+  padding-top: 70px;
+  display: block;
 }
 
 .container {
@@ -136,26 +132,33 @@ img {
   background: #1e40af;
 }
 
-/* ******** event pages ********* */
-
-/* NAVBAR */
 .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #1e3a8a;
+
+  background: #2c3e50;
   color: white;
-  padding: 15px 30px;
+
+  padding: 0 30px;
+  z-index: 1000;
 }
 
-.navbar a {
+.nav-links a {
   color: white;
+  margin-left: 20px;
   text-decoration: none;
-  margin-left: 15px;
+  font-weight: bold;
 }
 
-.navbar a:hover {
-  text-decoration: underline;
+.nav-links a:hover {
+  color: #1abc9c;
 }
 
 /* EVENTS PAGE */
@@ -196,14 +199,11 @@ img {
   background: #1e40af;
 }
 
-/* RESPONSIVE */
 @media (max-width: 768px) {
   .events-grid {
     grid-template-columns: 1fr;
   }
 }
-
-/* ********* event details********* */
 
 .details-container {
   padding: 40px;
@@ -221,7 +221,6 @@ img {
   font-size: 1.1rem;
 }
 
-/* ************* register *********** */
 .register-container {
   max-width: 500px;
   margin: 50px auto;
@@ -257,8 +256,6 @@ img {
   margin-top: 15px;
   color: green;
 }
-
-/* ************ admin page ************ */
 
 .admin-container {
   padding: 40px;
@@ -302,10 +299,6 @@ td button {
   color: white;
 }
 
-/* =========================
-   ADMIN EVENTS PAGE
-========================= */
-
 .admin-container {
   max-width: 900px;
   margin: 40px auto;
@@ -315,7 +308,6 @@ td button {
   text-align: center;
 }
 
-/* FORM */
 .admin-container form {
   margin-bottom: 30px;
 }
@@ -328,7 +320,6 @@ td button {
   border: 1px solid #ccc;
 }
 
-/* BUTTONS */
 .admin-container button {
   padding: 10px 15px;
   margin-top: 10px;
@@ -343,7 +334,6 @@ td button {
   background: #1e40af;
 }
 
-/* TABLE */
 table {
   width: 100%;
   margin-top: 20px;
@@ -365,7 +355,6 @@ tr:nth-child(even) {
   background: #f2f2f2;
 }
 
-/* DELETE BUTTON */
 td button {
   background: red;
   color: white;
